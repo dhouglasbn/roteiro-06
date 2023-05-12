@@ -23,8 +23,8 @@ public class StudentLinkedListTest {
 
 	private void getImplementations() {
 		// TODO O aluno deve ajustar aqui para instanciar sua implementação
-		lista1 = null;
-		lista2 = null;
+		lista1 = new SingleLinkedListImpl<Integer>();
+		lista2 = new SingleLinkedListImpl<Integer>();
 	}
 
 	@Test
@@ -70,7 +70,10 @@ public class StudentLinkedListTest {
 
 	@Test
 	public void testToArray() {
-		Assert.assertArrayEquals(new Integer[] {}, lista2.toArray());
-		Assert.assertArrayEquals(new Integer[] { 3, 2, 1 }, lista1.toArray());
+		Integer[] expected1 = new Integer[0];
+		Integer[] expected2 = {3, 2, 1};
+		
+		Assert.assertArrayEquals(expected1, lista2.toArray());
+		Assert.assertArrayEquals(expected2, lista1.toArray());
 	}
 }
