@@ -8,13 +8,20 @@ public class DoubleLinkedListImpl<T> extends SingleLinkedListImpl<T> implements
 	@Override
 	public void insertFirst(T element) {
 		DoubleLinkedListNode<T> nil = new DoubleLinkedListNode<T>();
-		DoubleLinkedListNode<T> head = (DoubleLinkedListNode<T>) this.head;
-		DoubleLinkedListNode<T> newHead = new DoubleLinkedListNode<T>(element, head, nil);
-		head.previous = newHead;
-		if (head.isNIL()) {
+		DoubleLinkedListNode<T> auxHead = this.last;
+		
+		if (auxHead == null) {
+			DoubleLinkedListNode<T> newHead = new DoubleLinkedListNode<T>(element, nil, nil);
 			this.last = newHead;
+			this.head = newHead;
+		} else {
+			while(!auxHead.previous.isNIL()) {
+				auxHead = auxHead.previous;
+			}
+			
+			DoubleLinkedListNode<T> newHead = new DoubleLinkedListNode<T>(element, auxHead, nil);
+			auxHead.previous = newHead;			
 		}
-		this.head = newHead;
 	}
 
 	@Override
@@ -22,12 +29,14 @@ public class DoubleLinkedListImpl<T> extends SingleLinkedListImpl<T> implements
 		if (!this.isEmpty()) {
 			this.head = this.head.next;
 			
-			DoubleLinkedListNode<T> head = (DoubleLinkedListNode<T>) this.head;
-			
-			if(head.isNIL()) {
-				this.last = head;
+			if(this.head.isNIL()) {
+				this.last = new DoubleLinkedListNode<T>();;
 			} else {
-				head.previous = new DoubleLinkedListNode<T>();
+				DoubleLinkedListNode<T> aux = this.last;
+				while(!aux.previous.previous.isNIL()) {
+					aux = aux.previous;
+				}
+				aux.previous = new DoubleLinkedListNode<T>();
 			}
 		}
 	}
@@ -38,7 +47,7 @@ public class DoubleLinkedListImpl<T> extends SingleLinkedListImpl<T> implements
 			this.last = this.last.previous;
 			
 			if(this.last.isNIL()) {
-				this.head = last;
+				this.head = new SingleLinkedListNode<T>();
 			} else {
 				this.last.next = new DoubleLinkedListNode<T>();
 			}

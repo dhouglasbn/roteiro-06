@@ -12,38 +12,60 @@ public class RecursiveSingleLinkedListImpl<T> implements LinkedList<T> {
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		return this.data == null;
 	}
 
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		if (this.isEmpty()) {
+			return 0;
+		} else {
+			return 1 + this.next.size();
+		}
 	}
 
 	@Override
 	public T search(T element) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		if (this.isEmpty()) {
+			return null;
+		} else {
+			if (this.data == element) {
+				return this.data;
+			} else {
+				return this.next.search(element);
+			}
+		}
 	}
 
 	@Override
 	public void insert(T element) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		if (element != null) {
+			if (this.isEmpty()) {
+				this.data = element;
+				this.next = new RecursiveSingleLinkedListImpl<T>();
+			} else {
+				this.next.insert(element);
+			}			
+		}
 	}
 
 	@Override
 	public void remove(T element) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		if (element != null) {
+			if (this.data == element) {
+				this.data = this.next.data;
+				this.next = this.next.next;
+			} else {
+				if (this.next != null) {
+					this.next.remove(element);					
+				}
+			}
+		}
 	}
 
 	@Override
 	public T[] toArray() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		return toArrayRecursive(this, 0);
 	}
 
 	public T getData() {
@@ -62,4 +84,13 @@ public class RecursiveSingleLinkedListImpl<T> implements LinkedList<T> {
 		this.next = next;
 	}
 
+	private T[] toArrayRecursive(RecursiveSingleLinkedListImpl<T> currentNode, int index) {
+        if (currentNode.getData() == null) {
+            return (T[]) new Object[index];
+        }
+
+        T[] array = toArrayRecursive(currentNode.getNext(), index + 1);
+        array[index] = currentNode.getData();
+        return array;
+    }
 }
