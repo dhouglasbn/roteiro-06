@@ -106,7 +106,6 @@ public class DoubleLinkedListImpl<T> extends SingleLinkedListImpl<T> implements
 			this.head = newHead;
 
 		}
-		auxHead = newHead;
 	}
 
 	@Override
