@@ -80,10 +80,12 @@ public class StudentLinkedListTest {
 
 	@Test
 	public void testSearch() {
-		Integer expected1 = 2;
-		Integer expected2 = 3;
-		Assert.assertEquals(expected1, lista1.search(2));
-		Assert.assertEquals(expected2, lista1.search(3));
+		Integer expected1 = 1;
+		Integer expected2 = 2;
+		Integer expected3 = 3;
+		Assert.assertEquals(expected1, lista1.search(1));
+		Assert.assertEquals(expected2, lista1.search(2));
+		Assert.assertEquals(expected3, lista1.search(3));
 	}
 	
 	@Test
