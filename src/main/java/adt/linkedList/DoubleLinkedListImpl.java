@@ -21,7 +21,7 @@ public class DoubleLinkedListImpl<T> extends SingleLinkedListImpl<T> implements
 		}
 		return size;
 	}
-
+  
 	@Override
 	public T search(T element) {
 		T result = null;
@@ -104,7 +104,9 @@ public class DoubleLinkedListImpl<T> extends SingleLinkedListImpl<T> implements
 				this.last = newHead;
 			}
 			this.head = newHead;
+
 		}
+		auxHead = newHead;
 	}
 
 	@Override
@@ -127,6 +129,7 @@ public class DoubleLinkedListImpl<T> extends SingleLinkedListImpl<T> implements
 			if (this.last.isNIL()) {
 				this.head = this.last;
 			} else {
+				
 				this.last.next = new DoubleLinkedListNode<T>();
 			}
 		}
