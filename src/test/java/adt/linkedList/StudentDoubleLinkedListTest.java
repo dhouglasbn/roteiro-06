@@ -6,9 +6,6 @@ import org.junit.Test;
 
 public class StudentDoubleLinkedListTest extends StudentLinkedListTest {
 
-	private DoubleLinkedList<Integer> lista5;
-	private DoubleLinkedList<Integer> lista6;
-
 	@Before
 	public void setUp() throws Exception {
 
@@ -19,20 +16,17 @@ public class StudentDoubleLinkedListTest extends StudentLinkedListTest {
 		lista1.insert(2);
 		lista1.insert(1);
 		
-		// Lista recursiva simples com 3 elementos
+		// Lista recursiva double com 3 elementos
 		lista3.insert(3);
 		lista3.insert(2);
 		lista3.insert(1);
 	}
 
 	private void getImplementations() {
-		// TODO O aluno deve ajustar aqui para instanciar sua implementação
 		lista1 = new DoubleLinkedListImpl<Integer>();
 		lista2 = new DoubleLinkedListImpl<Integer>();
-		lista3 = new RecursiveSingleLinkedListImpl<Integer>();
-		lista4 = new RecursiveSingleLinkedListImpl<Integer>();
-		lista5 = new RecursiveDoubleLinkedListImpl<Integer>();
-		lista6 = new RecursiveDoubleLinkedListImpl<Integer>();
+		lista3 = new RecursiveDoubleLinkedListImpl<Integer>();
+		lista4 = new RecursiveDoubleLinkedListImpl<Integer>();
 	}
 
 	// Métodos de DoubleLinkedList
@@ -121,4 +115,91 @@ public class StudentDoubleLinkedListTest extends StudentLinkedListTest {
 		((DoubleLinkedList<Integer>) lista2).removeLast();
 		Assert.assertArrayEquals(new Integer[] {}, lista2.toArray());
 	}
+	
+	// Métodos de RecursiveDoubleLinkedList
+
+		@Test
+		public void testRecursiveInsertFirst() {
+			((DoubleLinkedList<Integer>) lista3).insertFirst(4);
+			Assert.assertArrayEquals(new Integer[] { 4, 3, 2, 1 }, lista3.toArray());
+			((DoubleLinkedList<Integer>) lista3).insertFirst(7);
+			Assert.assertArrayEquals(new Integer[] { 7, 4, 3, 2, 1 }, lista3.toArray());
+		}
+		
+		
+		@Test
+		public void testRecursiveInsertFirstInEmptyList() {
+			((DoubleLinkedList<Integer>) lista4).insertFirst(4);
+			Assert.assertArrayEquals(new Integer[] { 4 }, lista4.toArray());
+			((DoubleLinkedList<Integer>) lista4).insertFirst(7);
+			Assert.assertArrayEquals(new Integer[] { 7, 4 }, lista4.toArray());
+		}
+		
+		@Test
+		public void testRecursiveInsertNullElement() {
+			((DoubleLinkedList<Integer>) lista3).insertFirst(null);
+			Assert.assertArrayEquals(new Integer[] { 3, 2, 1 }, lista3.toArray());
+			((DoubleLinkedList<Integer>) lista3).insertFirst(null);
+			Assert.assertArrayEquals(new Integer[] { 3, 2, 1 }, lista3.toArray());
+			((DoubleLinkedList<Integer>) lista3).insertFirst(4);
+			Assert.assertArrayEquals(new Integer[] { 4, 3, 2, 1 }, lista3.toArray());
+		}
+		
+		@Test
+		public void testRecursiveInsertFirstNullElementInEmptyList() {
+			((DoubleLinkedList<Integer>) lista4).insertFirst(null);
+			Assert.assertArrayEquals(new Integer[] {}, lista4.toArray());
+			((DoubleLinkedList<Integer>) lista4).insertFirst(null);
+			Assert.assertArrayEquals(new Integer[] {}, lista4.toArray());
+			((DoubleLinkedList<Integer>) lista4).insertFirst(4);
+			Assert.assertArrayEquals(new Integer[] { 4 }, lista4.toArray());
+		}
+		
+		@Test
+		public void testRecursiveRemoveFirst() {
+			((DoubleLinkedList<Integer>) lista3).removeFirst();
+			Assert.assertArrayEquals(new Integer[] { 2, 1 }, lista3.toArray());
+			((DoubleLinkedList<Integer>) lista3).removeFirst();
+			Assert.assertArrayEquals(new Integer[] { 1 }, lista3.toArray());
+		}
+		
+		@Test
+		public void testRecursiveRemoveFirstInEmptyList() {
+			((DoubleLinkedList<Integer>) lista4).removeFirst();
+			Assert.assertArrayEquals(new Integer[] {}, lista4.toArray());
+			((DoubleLinkedList<Integer>) lista4).removeFirst();
+			Assert.assertArrayEquals(new Integer[] {}, lista4.toArray());
+		}
+		
+		@Test
+		public void testRecursiveRemoveFirstInSingleElementList() {
+			((DoubleLinkedList<Integer>) lista4).insertFirst(4);
+			Assert.assertArrayEquals(new Integer[] { 4 }, lista4.toArray());
+			((DoubleLinkedList<Integer>) lista4).removeFirst();
+			Assert.assertArrayEquals(new Integer[] {}, lista4.toArray());
+		}
+
+		@Test
+		public void testRecursiveRemoveLast() {
+			((DoubleLinkedList<Integer>) lista3).removeLast();
+			Assert.assertArrayEquals(new Integer[] { 3, 2 }, lista3.toArray());
+			((DoubleLinkedList<Integer>) lista3).removeLast();
+			Assert.assertArrayEquals(new Integer[] { 3 }, lista3.toArray());
+		}
+		
+		@Test
+		public void testRecursiveRemoveLastInEmptyList() {
+			((DoubleLinkedList<Integer>) lista4).removeLast();
+			Assert.assertArrayEquals(new Integer[] {}, lista4.toArray());
+			((DoubleLinkedList<Integer>) lista4).removeLast();
+			Assert.assertArrayEquals(new Integer[] {}, lista4.toArray());
+		}
+		
+		@Test
+		public void testRecursiveRemoveLastInSingleElementList() {
+			((DoubleLinkedList<Integer>) lista4).insert(4);
+			Assert.assertArrayEquals(new Integer[] { 4 }, lista4.toArray());
+			((DoubleLinkedList<Integer>) lista4).removeLast();
+			Assert.assertArrayEquals(new Integer[] {}, lista4.toArray());
+		}
 }

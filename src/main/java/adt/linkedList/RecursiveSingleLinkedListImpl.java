@@ -65,7 +65,7 @@ public class RecursiveSingleLinkedListImpl<T> implements LinkedList<T> {
 
 	@Override
 	public T[] toArray() {
-		return toArrayRecursive(this, 0);
+		return toArray(this, 0);
 	}
 
 	public T getData() {
@@ -84,12 +84,12 @@ public class RecursiveSingleLinkedListImpl<T> implements LinkedList<T> {
 		this.next = next;
 	}
 
-	private T[] toArrayRecursive(RecursiveSingleLinkedListImpl<T> currentNode, int index) {
+	private T[] toArray(RecursiveSingleLinkedListImpl<T> currentNode, int index) {
         if (currentNode.getData() == null) {
             return (T[]) new Object[index];
         }
 
-        T[] array = toArrayRecursive(currentNode.getNext(), index + 1);
+        T[] array = toArray(currentNode.getNext(), index + 1);
         array[index] = currentNode.getData();
         return array;
     }

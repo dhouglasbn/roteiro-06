@@ -178,10 +178,20 @@ public class StudentLinkedListTest {
 	public void testRemoveInexistentElement() {
 		int expected = 3;
 		Assert.assertEquals(expected, lista1.size());
+		lista1.remove(5);
+		Assert.assertEquals(expected, lista1.size());
+		lista1.remove(10);
+		Assert.assertEquals(expected, lista1.size());
+	}
+	
+	@Test
+	public void testRemoveInEmptyList() {
+		int expected = 0;
+		Assert.assertEquals(expected, lista2.size());
 		lista2.remove(5);
-		Assert.assertEquals(expected, lista1.size());
+		Assert.assertEquals(expected, lista2.size());
 		lista2.remove(10);
-		Assert.assertEquals(expected, lista1.size());
+		Assert.assertEquals(expected, lista2.size());
 	}
 
 	@Test
@@ -278,10 +288,12 @@ public class StudentLinkedListTest {
 
 	@Test
 	public void testRecursiveSearch() {
-		Integer expected1 = 2;
-		Integer expected2 = 3;
-		Assert.assertEquals(expected1, lista3.search(2));
-		Assert.assertEquals(expected2, lista3.search(3));
+		Integer expected1 = 1;
+		Integer expected2 = 2;
+		Integer expected3 = 3;
+		Assert.assertEquals(expected1, lista3.search(1));
+		Assert.assertEquals(expected2, lista3.search(2));
+		Assert.assertEquals(expected3, lista3.search(3));
 	}
 	
 	@Test
@@ -290,7 +302,7 @@ public class StudentLinkedListTest {
 	}
 	
 	@Test
-	public void testRecursiveSearchAtNullList() {
+	public void testRecursiveSearchAtEmptyList() {
 		Assert.assertNull(lista4.search(2));
 	}
 	
@@ -305,7 +317,10 @@ public class StudentLinkedListTest {
 		lista3.insert(5);
 		lista3.insert(7);
 		Assert.assertEquals(5, lista3.size());
-
+	}
+	
+	@Test
+	public void testRecursiveInsertInEmptyList() {
 		Assert.assertEquals(0, lista4.size());
 		lista4.insert(4);
 		lista4.insert(7);
@@ -325,18 +340,22 @@ public class StudentLinkedListTest {
 	
 	@Test
 	public void testRecursiveInsertNullElement() {
-		int expected1 = 3;
-		int expected2 = 0;
+		int expected = 3;
 		
-		Assert.assertEquals(expected1, lista3.size());
+		Assert.assertEquals(expected, lista3.size());
 		lista3.insert(null);
 		lista3.insert(null);
-		Assert.assertEquals(expected1, lista3.size());
-
-		Assert.assertEquals(expected2, lista4.size());
+		Assert.assertEquals(expected, lista3.size());
+	}
+	
+	@Test
+	public void testRecursiveInsertNullElementInEmptyList() {
+		int expected = 0;
+		
+		Assert.assertEquals(expected, lista4.size());
 		lista4.insert(null);
 		lista4.insert(null);
-		Assert.assertEquals(expected2, lista4.size());
+		Assert.assertEquals(expected, lista4.size());
 	}
 
 	@Test
@@ -374,10 +393,20 @@ public class StudentLinkedListTest {
 	public void testRecursiveRemoveInexistentElement() {
 		int expected = 3;
 		Assert.assertEquals(expected, lista3.size());
+		lista3.remove(5);
+		Assert.assertEquals(expected, lista3.size());
+		lista3.remove(10);
+		Assert.assertEquals(expected, lista3.size());
+	}
+	
+	@Test
+	public void testRecursiveRemoveInEmptyList() {
+		int expected = 0;
+		Assert.assertEquals(expected, lista4.size());
 		lista4.remove(5);
-		Assert.assertEquals(expected, lista3.size());
+		Assert.assertEquals(expected, lista4.size());
 		lista4.remove(10);
-		Assert.assertEquals(expected, lista3.size());
+		Assert.assertEquals(expected, lista4.size());
 	}
 
 	@Test
