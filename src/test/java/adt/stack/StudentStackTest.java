@@ -8,6 +8,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import adt.queue.QueueOverflowException;
+
 public class StudentStackTest {
 
 	public Stack<Integer> stack1;
@@ -31,10 +33,9 @@ public class StudentStackTest {
 	}
 
 	private void getImplementations() {
-		// TODO O aluno deve ajustar aqui para instanciar sua implementação
-		stack1 = null;
-		stack2 = null;
-		stack3 = null;
+		stack1 = new StackDoubleLinkedListImpl<Integer>(4);
+		stack2 = new StackDoubleLinkedListImpl<Integer>(2);;
+		stack3 = new StackDoubleLinkedListImpl<Integer>(0);;
 	}
 
 	// MÉTODOS DE TESTE
@@ -42,38 +43,113 @@ public class StudentStackTest {
 	public void testTop() {
 		assertEquals(new Integer(3), stack1.top());
 	}
+	
+	@Test
+	public void testEmptyStackTop() {
+		try {
+			stack2.pop();
+			stack2.pop();			
+			Assert.assertNull(stack2.top());
+		} catch (StackUnderflowException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testEmptyStack3Top() {
+		Assert.assertNull(stack3.top());
+	}
 
 	@Test
 	public void testIsEmpty() {
 		assertFalse(stack1.isEmpty());
 	}
+	
+	@Test
+	public void testIsEmptyStack3() {
+		assertTrue(stack3.isEmpty());
+	}
 
+	@Test
+	public void testIsEmptyStack2() {
+		assertFalse(stack2.isEmpty());
+	}
+	
 	@Test
 	public void testIsFull() {
 		assertFalse(stack1.isFull()); // vai depender do tamanho que a pilha foi
-										// iniciada!!!!
+		// iniciada!!!!
+	}
+
+	@Test
+	public void testIsFullStack2() {
+		assertTrue(stack2.isFull());
+	}
+	
+	@Test
+	public void testIsFullStack3() {
+		assertTrue(stack3.isFull());
+	}
+	
+	@Test
+	public void testOneElementIsntEmpty() {
+		try {
+			stack2.pop();
+			assertFalse(stack2.isEmpty());
+		} catch (StackUnderflowException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Test
 	public void testPush() {
 		try {
+			Integer expected = 5;
+			
 			stack1.push(new Integer(5));
+			
+			Integer result = stack1.top();
+			assertEquals(expected, result);
+			assertEquals(expected, stack1.top());
 		} catch (StackOverflowException e) {
 			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testPushNullElement() {
+		try {
+			Integer expected = 3;
+			
+			stack1.push(null);
+			
+			Integer result = stack1.top();
+			assertEquals(expected, result);
+		} catch (StackOverflowException e) {
 			e.printStackTrace();
 		}
 	}
 
 	@Test(expected = StackOverflowException.class)
 	public void testPushComErro() throws StackOverflowException {
+		stack1.push(new Integer(4));
 		stack1.push(new Integer(5)); // levanta excecao apenas se o tamanhonao
 										// permitir outra insercao
+	}
+	
+	@Test(expected = StackOverflowException.class)
+	public void testPushComErroStack2() throws StackOverflowException {
+		stack2.push(new Integer(5)); // vai depender do tamanho que a fila
 	}
 
 	@Test
 	public void testPop() {
 		try {
+			Integer expected = 2;
+			
 			assertEquals(new Integer(3), stack1.pop());
+			assertEquals(expected, stack1.top());
 		} catch (StackUnderflowException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -82,7 +158,38 @@ public class StudentStackTest {
 
 	@Test(expected = StackUnderflowException.class)
 	public void testPopComErro() throws StackUnderflowException {
-		assertEquals(new Integer(3), stack1.pop()); // levanta excecao apenas se
+		stack1.pop();
+		stack1.pop();
+		stack1.pop();
+		stack1.pop(); // levanta excecao apenas se
+					  // stack1 for vazia
+	}
+	
+	@Test(expected = StackOverflowException.class)
+	public void testPushComErroStack3() throws StackOverflowException {
+		stack3.push(new Integer(4)); // levanta excecao apenas se o tamanhonao
+									// permitir outra insercao
+	}
+	
+	@Test(expected = StackUnderflowException.class)
+	public void testPopComErroStack3() throws StackUnderflowException {
+		stack3.pop(); // levanta excecao apenas se
 													// stack1 for vazia
+	}
+	
+	@Test
+	public void testResetQueue() {
+		try {
+			stack1.pop();
+			stack1.pop(); 
+			stack1.pop();
+			stack1.push(new Integer(1));
+			stack1.push(new Integer(2));
+			stack1.push(new Integer(3));
+			stack1.push(new Integer(4));
+			assertTrue(stack1.isFull());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
